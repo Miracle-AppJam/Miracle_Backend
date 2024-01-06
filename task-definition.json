@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "mir",
-            "image": "docker.io/dyaonly/miracle:latest",
+            "image": "dyaonly/miracle:latest",
             "cpu": 0,
             "portMappings": [
                 {
