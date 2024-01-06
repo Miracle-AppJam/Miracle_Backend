@@ -17,7 +17,7 @@ public class ChatGPTController {
     private final ChatGPTService chatGPTService;
 
     @PostMapping("/data")
-    public Object createData(@RequestPart("data") MassageRequest massageRequest , @RequestPart("file") MultipartFile multipartFile) throws IOException {
+    public Object createData(@RequestPart("data") MessageRequest massageRequest , @RequestPart("file") MultipartFile multipartFile) throws IOException {
         return chatGPTService.createData(massageRequest, multipartFile);
     }
 }
