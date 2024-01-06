@@ -14,12 +14,12 @@ public class ChatGPTController {
 
     private final ChatGPTService chatGPTService;
 
-    @PostMapping("/data")
+    @PostMapping("/file")
     public Object createFile(@RequestPart("file") MultipartFile multipartFile) throws IOException {
         return chatGPTService.createFile(multipartFile);
     }
 
-    @PostMapping("/file")
+    @PostMapping("/data")
     public Object createData(@RequestBody MessageRequest massageRequest) throws JsonProcessingException {
         return chatGPTService.createData(massageRequest);
     }
