@@ -2,7 +2,6 @@ package com.miracle.azure;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.miracle.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -11,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +28,6 @@ public class ChatGPTService {
     private String subscriptionKey;
 
     private final RestTemplate restTemplate;
-
 
     public Object createData(MassageRequest massageRequest,MultipartFile multipartFile) throws IOException {
         String responseBody = "";
@@ -70,8 +67,6 @@ public class ChatGPTService {
         map1.put("data", map);
 
         return map1;
-
-
     }
 
     public String postGPT(String url, MassageRequest massageRequest) {
@@ -151,4 +146,3 @@ public class ChatGPTService {
         }
     }
 }
-
