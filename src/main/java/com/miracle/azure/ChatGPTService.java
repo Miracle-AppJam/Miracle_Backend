@@ -29,7 +29,7 @@ public class ChatGPTService {
 
     private final RestTemplate restTemplate;
 
-    public Object createData(MassageRequest massageRequest,MultipartFile multipartFile) throws IOException {
+    public Object createData(MessageRequest massageRequest, MultipartFile multipartFile) throws IOException {
         String responseBody = "";
 
         HttpHeaders headers = new HttpHeaders();
@@ -67,7 +67,7 @@ public class ChatGPTService {
         return map;
     }
 
-    public String postGPT(String url, MassageRequest massageRequest) {
+    public String postGPT(String url, MessageRequest massageRequest) {
         String jsonInput = "";
 
         if (massageRequest == null) {
@@ -116,7 +116,7 @@ public class ChatGPTService {
                     "      \"content\": [\n" +
                     "        {\n" +
                     "          \"type\": \"text\",\n" +
-                    "          \"text\": \" " + massageRequest.massage() + "\"\n" +
+                    "          \"text\": \" " + massageRequest.message() + "\"\n" +
                     "        }\n" +
                     "      ]\n" +
                     "    }\n" +
