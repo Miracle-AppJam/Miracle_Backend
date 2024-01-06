@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/chatgpt")
+@RequestMapping(value = "/chatgpt", method = {RequestMethod.POST})
 public class ChatGPTController {
 
     private final ChatGPTService chatGPTService;
