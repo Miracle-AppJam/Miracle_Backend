@@ -32,7 +32,7 @@ jobs:
     needs: prebuild
     runs-on: ubuntu-latest
     outputs:
-      task-def: task-definition.json
+      task-def: ${{ steps.task-def.outputs.task-definition }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
