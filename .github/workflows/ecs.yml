@@ -31,8 +31,6 @@ jobs:
   build:
     needs: prebuild
     runs-on: ubuntu-latest
-    outputs:
-      task-def: ${{ steps.task-def.outputs.task-definition }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -79,7 +77,7 @@ jobs:
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ needs.build.outputs.task-def }}
+          task-definition: task-definition.json
           service: mir-service
           cluster: miracle-cluster
           wait-for-service-stability: true
