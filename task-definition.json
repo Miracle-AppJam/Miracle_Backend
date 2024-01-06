@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "mir",
-            "image": "public.ecr.aws/l9d5m0q6/miracle",
+            "image": "docker.io/dyaonly/miracle:latest",
             "cpu": 0,
             "portMappings": [
                 {
