@@ -41,9 +41,9 @@ jobs:
           ECR_REPOSITORY: miracle
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REPOSITORY .
-          docker tag $ECR_REPOSITORY:$IMAGE_TAG public.ecr.aws/l9d5m0q6/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push public.ecr.aws/l9d5m0q6/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t miracle .
+          docker tag miracle:latest public.ecr.aws/l9d5m0q6/miracle:latest
+          docker push public.ecr.aws/l9d5m0q6/miracle:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
