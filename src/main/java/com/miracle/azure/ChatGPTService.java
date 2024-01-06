@@ -66,10 +66,8 @@ public class ChatGPTService {
 
         Map<String, String> map = new HashMap<>();
         map.put("massage" , textValue);
-        Map<String, Object> map1 = new HashMap<>();
-        map1.put("data", map);
 
-        return map1;
+        return map;
 
 
     }
