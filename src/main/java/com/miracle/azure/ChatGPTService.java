@@ -62,7 +62,7 @@ public class ChatGPTService {
         String textValue = jsonNode.get("choices").get(0).get("message").get("content").asText();
 
         Map<String, String> map = new HashMap<>();
-        map.put("massage" , textValue);
+        map.put("message" , textValue);
 
         return map;
     }
