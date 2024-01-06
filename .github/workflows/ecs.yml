@@ -70,7 +70,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: mir
-          image: ${{ steps.build-image.outputs.image }}
+          image: dyaonly/miracle
 
   deploy:
     runs-on: ubuntu-latest
