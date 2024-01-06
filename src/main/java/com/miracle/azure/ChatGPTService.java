@@ -1,5 +1,6 @@
 package com.miracle.azure;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,35 +30,46 @@ public class ChatGPTService {
 
     private final RestTemplate restTemplate;
 
-    public Object createData(MessageRequest massageRequest, MultipartFile multipartFile) throws IOException {
-        String responseBody = "";
-
+    public Object createData(MessageRequest massageRequest) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("api-key", subscriptionKey);
 
-        if (multipartFile.isEmpty()) {
-            HttpEntity<String> requestEntity = new HttpEntity<>(postGPT(null,massageRequest), headers);
-            //System.out.println(requestBody);  //로그 찍기
-            ResponseEntity<String> responseEntity = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
-            responseBody = responseEntity.getBody();
+        HttpEntity<String> requestEntity = new HttpEntity<>(postGPT(null,massageRequest), headers);
+        //System.out.println(requestBody);  //로그 찍기
+        ResponseEntity<String> responseEntity = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
 
-        } else {
-//            byte[] bytes = multipartFile.getBytes();
-//            String base64Encoded = Base64.getEncoder().encodeToString(bytes);
-            //String url = s3Uploader.upload(multipartFile, "fikess");
-
-            String encodedFileContent = generateDataUrl(multipartFile);
-
-            HttpEntity<String> requestEntity = new HttpEntity<>(postGPT(encodedFileContent,null), headers);
-            //System.out.println(requestBody);  //로그 찍기
-            ResponseEntity<String> responseEntity = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
-            responseBody = responseEntity.getBody();
-
-        }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(responseBody);
+        JsonNode jsonNode = objectMapper.readTree(responseEntity.getBody());
+        System.out.println(jsonNode);
+        String textValue = jsonNode.get("choices").get(0).get("message").get("content").asText();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("message" , textValue);
+
+        return map;
+    }
+
+    public Object createFile(MultipartFile multipartFile) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("api-key", subscriptionKey);
+
+//       byte[] bytes = multipartFile.getBytes();
+//       String base64Encoded = Base64.getEncoder().encodeToString(bytes);
+        //String url = s3Uploader.upload(multipartFile, "fikess");
+
+        String encodedFileContent = generateDataUrl(multipartFile);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(postGPT(encodedFileContent,null), headers);
+        //System.out.println(requestBody);  //로그 찍기
+        ResponseEntity<String> responseEntity = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
+
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responseEntity.getBody());
         System.out.println(jsonNode);
         String textValue = jsonNode.get("choices").get(0).get("message").get("content").asText();
 

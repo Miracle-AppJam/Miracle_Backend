@@ -1,5 +1,6 @@
 package com.miracle.azure;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,12 @@ public class ChatGPTController {
     private final ChatGPTService chatGPTService;
 
     @PostMapping("/data")
-    public Object createData(@RequestPart("data") MessageRequest massageRequest , @RequestPart("file") MultipartFile multipartFile) throws IOException {
-        return chatGPTService.createData(massageRequest, multipartFile);
+    public Object createFile(@RequestPart("file") MultipartFile multipartFile) throws IOException {
+        return chatGPTService.createFile(multipartFile);
+    }
+
+    @PostMapping("/file")
+    public Object createData(@RequestBody MessageRequest massageRequest) throws JsonProcessingException {
+        return chatGPTService.createData(massageRequest);
     }
 }
