@@ -1,6 +1,5 @@
 package com.miracle.azure;
 
-import com.miracle.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

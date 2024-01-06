@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -60,10 +62,14 @@ public class ChatGPTService {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
         System.out.println(jsonNode);
-//        String textValue = jsonNode.get("choices").get(0).get("message").get("content").asText();
+        String textValue = jsonNode.get("choices").get(0).get("message").get("content").asText();
 
+        Map<String, String> map = new HashMap<>();
+        map.put("massage" , textValue);
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("data", map);
 
-        return "hello";
+        return map1;
 
 
     }
